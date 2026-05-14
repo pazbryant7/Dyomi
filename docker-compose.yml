@@ -1,0 +1,15 @@
+services:
+  dyomisy:
+    image: dyomisy-builder:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      tags:
+        - dyomisy-builder:latest
+    volumes:
+      - .:/project
+      - gradle-cache:/root/.gradle
+    command: ./gradlew spotlessCheck assembleDevDebug
+
+volumes:
+  gradle-cache:
