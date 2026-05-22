@@ -2,7 +2,7 @@
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
 | [![Preview](https://github.com/pazbryant7/DyomiSYPreview/workflows/Remote%20Dispatch%20Build%20App/badge.svg)](https://github.com/pazbryant7/DyomiSYPreview/releases) | [![stable release](https://img.shields.io/github/release/pazbryant7/tachiyomisy.svg?maxAge=3600&label=download)](https://github.com/pazbryant7/tachiyomisy/releases/latest) |
 
-# ![app icon](./.github/readme-images/app-icon.png) DyomiSY
+# DyomiSY
 
 DyomiSY is a fork of **Mihon**, based on TachiyomiSY. It is designed to provide
 same experience as the original one while maintaining compatibility with the
