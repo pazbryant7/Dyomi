@@ -52,9 +52,9 @@ class MangaBakaApi(
             .header(
                 "User-Agent",
                 buildString {
-                    append("TachiyomiSY/v${BuildConfig.VERSION_NAME} ")
+                    append("Dyomi/v${BuildConfig.VERSION_NAME} ")
                     append("(${BuildConfig.APPLICATION_ID} ${BuildConfig.COMMIT_SHA}) ")
-                    append("(Android) (https://github.com/mihonapp/mihon)")
+                    append("(Android) (https://github.com/pazbryant7/Dyomi)")
                 },
             )
             .build()
