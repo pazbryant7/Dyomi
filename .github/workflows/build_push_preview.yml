@@ -4,6 +4,7 @@ on:
   push:
    branches:
     - 'preview'
+  workflow_dispatch:
 
 jobs:
   trigger_preview_build:
