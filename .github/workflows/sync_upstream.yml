@@ -1,0 +1,63 @@
+name: Sync upstream
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Merge upstream branches
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Merge upstream branches
+        id: sync
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add upstream https://github.com/jobobby04/TachiyomiSY.git
+          git fetch --prune origin '+refs/heads/*:refs/remotes/origin/*'
+          git fetch --prune upstream '+refs/heads/*:refs/remotes/upstream/*'
+
+          for branch in master preview release; do
+            git switch --force-create "$branch" "origin/$branch"
+            before=$(git rev-parse HEAD)
+            git merge --no-edit "upstream/$branch"
+            after=$(git rev-parse HEAD)
+
+            if [ "$before" = "$after" ]; then
+              echo "$branch=false" >> "$GITHUB_OUTPUT"
+            else
+              echo "$branch=true" >> "$GITHUB_OUTPUT"
+            fi
+          done
+
+          git push --atomic origin master preview release
+
+      - name: Build updated preview
+        if: steps.sync.outputs.preview == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run build_push_preview.yml --ref preview
+
+      - name: Build updated release
+        if: steps.sync.outputs.release == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run build_push.yml --ref release
