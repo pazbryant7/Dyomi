@@ -1,4 +1,4 @@
-name: Sync upstream
+name: Sync Dyomi with upstream
 
 on:
   schedule:
