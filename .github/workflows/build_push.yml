@@ -1,4 +1,4 @@
-name: Release Builder
+name: Dyomi Release Builder
 on:
   push:
    branches:
